@@ -100,3 +100,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+=======
+# PurgeX
+High-performance Windows system residual and process auditor built in Rust with a responsive eframe/egui GUI, multithreaded MPSC architecture, automated process lock termination, and dynamic path detection
