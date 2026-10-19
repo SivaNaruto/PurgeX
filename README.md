@@ -1,8 +1,8 @@
-OrphanCleaner // High-Performance Windows System Residual & Process Auditor
+PurgeX // High-Performance Windows System Residual & Process Auditor
 
-OrphanCleaner is a standalone, open-source Windows utility developed in Rust using eframe/egui. Featuring a dense, responsive tabular interface inspired by classic disk space analyzers, it audits and permanently purges system garbage, uninstalled software leftovers (such as residual AppData and ProgramData folders), Windows update download caches, and orphaned installer patch files (.msp/.msi).
+PurgeX is a standalone, open-source Windows utility developed in Rust using eframe/egui. Featuring a dense, responsive tabular interface inspired by classic disk space analyzers, it audits and permanently purges system garbage, uninstalled software leftovers (such as residual AppData and ProgramData folders), Windows update download caches, and orphaned installer patch files (.msp/.msi).
 
-Built for speed, reliability, and modern OS safety, OrphanCleaner operates with non-blocking concurrency, zero hardcoded path assumptions, and automated process lock resolution.
+Built for speed, reliability, and modern OS safety, PurgeX operates with non-blocking concurrency, zero hardcoded path assumptions, and automated process lock resolution.
 
 🚀 Key Features
 
@@ -42,8 +42,8 @@ Target OS: Windows 10 / 11
 
 1. Clone the Repository
 
-git clone https://github.com/SivaNaruto/OrphanCleaner.git
-cd OrphanCleaner
+git clone https://github.com/SivaNaruto/PurgeX.git
+cd PurgeX
 
 
 2. Run in Development Mode
@@ -60,7 +60,7 @@ The optimized executable will be located at target/release/orphan_cleaner.exe.
 
 📁 Repository Structure
 
-OrphanCleaner/
+PurgeX/
 ├── Cargo.toml          # Package metadata and dependencies (eframe/egui)
 ├── README.md           # Documentation & resume overview
 └── src/

@@ -110,7 +110,7 @@ impl eframe::App for SystemCleanerApp {
             ui.add_space(10.0);
             ui.horizontal(|ui| {
                 ui.vertical(|ui| {
-                    ui.heading(egui::RichText::new("OrphanCleaner // SYSTEM RESIDUAL & SPACE AUDITOR").color(egui::Color32::from_rgb(70, 180, 240)).strong());
+                    ui.heading(egui::RichText::new("PurgeX // SYSTEM RESIDUAL & SPACE AUDITOR").color(egui::Color32::from_rgb(70, 180, 240)).strong());
                     ui.add_space(2.0);
                     ui.label(egui::RichText::new(format!("System Drive: {}  •  User Profile: {}", self.system_drive, self.user_profile)).size(11.0).color(egui::Color32::GRAY));
                 });
@@ -662,7 +662,7 @@ fn main() -> Result<(), eframe::Error> {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_inner_size([1150.0, 740.0])
-            .with_title("OrphanCleaner: Process Hunter & Residual Auditor")
+            .with_title("PurgeX: Process Hunter & Residual Auditor")
             .with_icon(icon_image),
         ..Default::default()
     };
