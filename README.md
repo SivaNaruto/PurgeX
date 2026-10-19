@@ -1,72 +1,102 @@
-Wiz-Clean // System Residual & Space Auditor
+OrphanCleaner // High-Performance Windows System Residual & Process Auditor
 
-A high-performance, lightweight Windows system cleanup utility built in Rust using eframe / egui. Wiz-Clean detects system residuals, orphaned installation leftovers, stale caches, and locked files—offering dynamic elevation and active process hunting to reclaim disk space effortlessly.
+OrphanCleaner is a standalone, open-source Windows utility developed in Rust using eframe/egui. Featuring a dense, responsive tabular interface inspired by classic disk space analyzers, it audits and permanently purges system garbage, uninstalled software leftovers (such as residual AppData and ProgramData folders), Windows update download caches, and orphaned installer patch files (.msp/.msi).
 
-🌟 Key Features
+Built for speed, reliability, and modern OS safety, OrphanCleaner operates with non-blocking concurrency, zero hardcoded path assumptions, and automated process lock resolution.
 
-Dynamic Environment Resolution: Automatically detects system drives (C:, D:, etc.) and user profiles dynamically without hardcoded path dependencies.
+🚀 Key Features
 
-Orphaned Residual Detection:
+Non-Blocking Multithreaded Architecture: Runs heavy disk scans and recursive filesystem deletions on background worker threads using Rust std::sync::mpsc channels, preventing GUI freeze or UI frame drops.
 
-Scans AppData\Local, AppData\Roaming, and ProgramData for abandoned folders from uninstalled applications.
+100% Dynamic Path Detection: Automatically detects active Windows drives (C:, D:, etc.) and system directories by querying environment variables (WINDIR, SystemDrive, USERPROFILE, ProgramData).
 
-Identifies leftover Windows Installer patch backlogs (.msp, .msi).
+Process Lock Hunting (os error 32 Resolution): Automatically hunts processes holding active file locks on targeted residue directories via PowerShell queries (Get-Process) and terminates them prior to deletion.
 
-Clears stale Windows update download caches and runtime user caches.
+UAC Self-Elevation Loop: Supports administrative privilege escalation using --auto-purge CLI flag loops via PowerShell RunAs verbs to clean protected system-level caches safely.
 
-Process Lock Hunting & Forced Purge:
+Console-Suppressed Native Binary: Configured with #![windows_subsystem = "windows"] to prevent unwanted background terminal/command prompt windows in release builds.
 
-Automatically identifies processes locking target residual files/folders.
+Embedded Binary Icon: Features a programmatic 32x32 RGBA window icon baked directly into the standalone binary without external asset dependencies.
 
-Terminates locking processes safely prior to purge operations.
+Interactive Explorer Integration: Double-clicking any row in the scan results instantly opens and highlights the item in Windows Explorer.
 
-Clears read-only attributes recursively before deletion.
+Full-Width Responsive UI: Uses dynamic column scaling and custom dark visuals with explicit column headers and alternating row fills.
 
-UAC Elevation Support:
+🛠️ Tech Stack & Architecture
 
-Seamlessly requests Administrator privileges (UAC prompt) when purging protected system locations.
+Language: Rust (2021 Edition)
 
-Modern Dark UI: High-density full-width responsive grid built on egui with custom styling and direct folder opening on double-click.
+GUI Engine: eframe / egui (v0.29)
 
-🚀 Getting Started
+Threading: std::sync::mpsc (Message-passing concurrency)
+
+OS Integration: Win32 API environment mappings, std::fs filesystem operations, PowerShell process management
+
+📦 Building from Source
 
 Prerequisites
 
-Ensure you have Rust installed on your Windows machine:
+Rust toolchain (1.70+ recommended): Install Rust
 
-Rust: https://rustup.rs (MSVC toolchain recommended)
+Target OS: Windows 10 / 11
 
-Build and Run
+1. Clone the Repository
 
-Clone or download this repository.
-
-Open a terminal in the project directory.
-
-Run the application in release mode:
-
-cargo run --release
+git clone https://github.com/SivaNaruto/OrphanCleaner.git
+cd OrphanCleaner
 
 
-🛠️ Usage Guide
+2. Run in Development Mode
 
-Run System Audit: Click the blue Run System Audit button to initiate disk scanning.
+cargo run
 
-Review Items: Double-click any row to open the target folder directly in Windows Explorer.
 
-Select & Purge:
+3. Build Production Release (Console Suppressed)
 
-Check or uncheck items you wish to delete.
+cargo build --release
 
-Leave Request UAC Elevation (Admin Mode) checked if deleting system-level residuals.
 
-Click Purge Selected & Hunt Locks to initiate safe process termination and permanent deletion.
+The optimized executable will be located at target/release/orphan_cleaner.exe.
 
-⚠️ Security & Safety
+📁 Repository Structure
 
-Wiz-Clean includes built-in safety filters to protect critical OS components (e.g., Windows, System32, Microsoft, Packages).
+OrphanCleaner/
+├── Cargo.toml          # Package metadata and dependencies (eframe/egui)
+├── README.md           # Documentation & resume overview
+└── src/
+└── main.rs         # Multithreaded GUI app, scanner engine, process hunter
 
-Files are purged permanently. Ensure you review detected items before confirming deletion.
+
+💻 Technical Resume Highlights
+
+Systems Programming in Rust: Demonstrates ownership/borrowing mechanics, custom recursive traversal depth caps, and attribute-stripping logic (readonly permission clearing).
+
+Concurrent I/O Design: Implemented non-blocking event-driven communication using native standard library MPSC channels between worker threads and the rendering loop.
+
+Win32 & OS Engineering: Handles Windows-specific file locking semantics, environment variable resolution, process termination hooks, and privilege escalation workflows.
+
+Zero-Dependency Native GUI: Built a lightweight, single-file binary standalone application without relying on heavy web runtimes like Electron.
 
 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License
+
+Copyright (c) 2026
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
